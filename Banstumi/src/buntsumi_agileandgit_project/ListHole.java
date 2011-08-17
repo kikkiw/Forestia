@@ -8,7 +8,7 @@ package buntsumi_agileandgit_project;
  *
  * @author Ei8ht
  */
-public class ListHole{
+public class ListHole {
     Hole head = null;
     Hole last = null;
     public void add(int value,int numHole){
@@ -21,15 +21,18 @@ public class ListHole{
             last.next = head;
         }
     }
-    
     public void listAll(){
         Hole pointer = head;
-        while(pointer != null){
+        
+        for (int i = 0; i < 14; i++) {
             System.out.println(pointer.getBeans()+" "+pointer.getNumHole());
             pointer = pointer.next;
         }
+//        while(pointer != null){
+//            System.out.println(pointer.getBeans()+" "+pointer.getNumHole());
+//            pointer = pointer.next;
+//        }
     }
-    
     public Hole getHole(int numHole){
         Hole pointer = head;
         while(pointer != null){
@@ -40,26 +43,25 @@ public class ListHole{
         }
         return null;
     }
-    
-//    public void delay(){
-//        for(int t = 0 ; t < 1000000 ; t++){
-//            
-//        }
-//    }
-    
-    public void ShiftBean(Hole pointer){
+    public void ShiftBean(Hole pointer, boolean check){
         int amount = pointer.getBeans();
         pointer.setBeans(0);
-//        delay();
         for(int i = 0;i<amount;i++){
             pointer = pointer.next;
-            if(pointer.getNumHole() == 14){
-                pointer = pointer.next;
+            if(check == true){
+                if(pointer.getNumHole() == 14){
+                    pointer = pointer.next;
+                }
+                int shiftBean = pointer.getBeans()+1;
+                pointer.setBeans(shiftBean);
             }
-            int shiftBean = 1+pointer.getBeans();
-            pointer.setBeans(shiftBean);
-//            setText();
-            System.out.println(shiftBean);
+            if(check == false){
+                if(pointer.getNumHole() == 7){
+                    pointer = pointer.next;
+                }
+                int shiftBean = pointer.getBeans()+1;
+                pointer.setBeans(shiftBean);
+            }   
         }
     }
 }

@@ -17,10 +17,11 @@ import javax.swing.JTextField;
  *
  * @author NoodlemaN
  */
-public class TestBuntumi extends javax.swing.JFrame{
+public class TestBuntumi extends javax.swing.JFrame {
     Hole pointer;
     ListHole list;
-    int numButton = 0;
+    boolean check = true;
+    int i = 0;
     /** Creates new form TestBuntumi */
     public TestBuntumi() {
         list = new ListHole(); 
@@ -30,35 +31,41 @@ public class TestBuntumi extends javax.swing.JFrame{
         list.add(4,4);
         list.add(4,5);
         list.add(4,6);
-        list.add(0,7);
+        list.add(0,7);      //ตะกร้าผู้เล่น 1
         list.add(4,8);
         list.add(4,9);
         list.add(4,10);
         list.add(4,11);
         list.add(4,12);
         list.add(4,13);
-        list.add(0,14);
-        //list.ShiftBean(list.getHole(1));
-        //list.listAll();
+        list.add(0,14);     //ตะกร้าผู้เล่น 2
+        
+        list.listAll();
         initComponents();
+
         setText();
-                
-    }
-    
-    public void delay(){
-        for(int t = 0 ; t < 1000000 ; t++){
+        jButton1.setEnabled(false);
+        jButton2.setEnabled(false);
+        jButton3.setEnabled(false);
+        jButton4.setEnabled(false);
+        jButton5.setEnabled(false);
+        jButton6.setEnabled(false);
             
-        }
+        jButton7.setEnabled(true);
+        jButton8.setEnabled(true);
+        jButton9.setEnabled(true);
+        jButton10.setEnabled(true);
+        jButton11.setEnabled(true);
+        jButton12.setEnabled(true);
     }
     
-    public void setText(){
+    private void setText(){
         jTextField7.setText(Integer.toString(list.getHole(1).getBeans()));
         jTextField8.setText(Integer.toString(list.getHole(2).getBeans()));
         jTextField9.setText(Integer.toString(list.getHole(3).getBeans()));
         jTextField10.setText(Integer.toString(list.getHole(4).getBeans()));
         jTextField11.setText(Integer.toString(list.getHole(5).getBeans()));
         jTextField12.setText(Integer.toString(list.getHole(6).getBeans()));
-        jTextField14.setText(Integer.toString(list.getHole(7).getBeans()));
         
         jTextField1.setText(Integer.toString(list.getHole(8).getBeans()));
         jTextField2.setText(Integer.toString(list.getHole(9).getBeans()));
@@ -66,7 +73,48 @@ public class TestBuntumi extends javax.swing.JFrame{
         jTextField4.setText(Integer.toString(list.getHole(11).getBeans()));
         jTextField5.setText(Integer.toString(list.getHole(12).getBeans()));
         jTextField6.setText(Integer.toString(list.getHole(13).getBeans()));
+        
+        jTextField14.setText(Integer.toString(list.getHole(7).getBeans()));
         jTextField13.setText(Integer.toString(list.getHole(14).getBeans()));
+    }
+    
+    private boolean checkUser(int i){
+        if(i%2 == 1){
+            jButton1.setEnabled(true);
+            jButton2.setEnabled(true);
+            jButton3.setEnabled(true);
+            jButton4.setEnabled(true);
+            jButton5.setEnabled(true);
+            jButton6.setEnabled(true);
+            
+            jButton7.setEnabled(false);
+            jButton8.setEnabled(false);
+            jButton9.setEnabled(false);
+            jButton10.setEnabled(false);
+            jButton11.setEnabled(false);
+            jButton12.setEnabled(false);
+            
+            return false;
+        }
+        else {
+            
+            jButton1.setEnabled(false);
+            jButton2.setEnabled(false);
+            jButton3.setEnabled(false);
+            jButton4.setEnabled(false);
+            jButton5.setEnabled(false);
+            jButton6.setEnabled(false);
+            
+            jButton7.setEnabled(true);
+            jButton8.setEnabled(true);
+            jButton9.setEnabled(true);
+            jButton10.setEnabled(true);
+            jButton11.setEnabled(true);
+            jButton12.setEnabled(true);
+            
+            return true;
+        }
+        
     }
 
     /** This method is called from within the constructor to
@@ -108,6 +156,7 @@ public class TestBuntumi extends javax.swing.JFrame{
         jTextField10 = new javax.swing.JTextField();
         jTextField11 = new javax.swing.JTextField();
         jTextField12 = new javax.swing.JTextField();
+        jButton13 = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
@@ -390,6 +439,13 @@ public class TestBuntumi extends javax.swing.JFrame{
                 .addContainerGap(12, Short.MAX_VALUE))
         );
 
+        jButton13.setText("Switch User");
+        jButton13.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton13ActionPerformed(evt);
+            }
+        });
+
         jMenu1.setText("File");
 
         jMenuItem2.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_N, java.awt.event.InputEvent.CTRL_MASK));
@@ -422,7 +478,9 @@ public class TestBuntumi extends javax.swing.JFrame{
                     .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 176, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton13)
+                        .addGap(46, 46, 46)
                         .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -432,10 +490,15 @@ public class TestBuntumi extends javax.swing.JFrame{
             .addGroup(layout.createSequentialGroup()
                 .addGap(27, 27, 27)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(42, 42, 42)
+                        .addComponent(jButton13)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(27, 27, 27))
@@ -446,50 +509,50 @@ public class TestBuntumi extends javax.swing.JFrame{
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        list.ShiftBean(list.getHole(8));
+        list.ShiftBean(list.getHole(8),check);
         setText();
         
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
         // TODO add your handling code here:
-        list.ShiftBean(list.getHole(1));
+        list.ShiftBean(list.getHole(1),check);
         setText();
     }//GEN-LAST:event_jButton7ActionPerformed
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
         // TODO add your handling code here:
-        list.ShiftBean(list.getHole(2));
+        list.ShiftBean(list.getHole(2),check);
         setText();
     }//GEN-LAST:event_jButton8ActionPerformed
 
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
         // TODO add your handling code here:
-        list.ShiftBean(list.getHole(3));
+        list.ShiftBean(list.getHole(3),check);
         setText();
     }//GEN-LAST:event_jButton9ActionPerformed
 
     private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
         // TODO add your handling code here:
-        list.ShiftBean(list.getHole(4));
+        list.ShiftBean(list.getHole(4),check);
         setText();
     }//GEN-LAST:event_jButton10ActionPerformed
 
     private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
         // TODO add your handling code here:
-        list.ShiftBean(list.getHole(5));
+        list.ShiftBean(list.getHole(5),check);
         setText();
     }//GEN-LAST:event_jButton11ActionPerformed
 
     private void jButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton12ActionPerformed
         // TODO add your handling code here:
-        list.ShiftBean(list.getHole(6));
+        list.ShiftBean(list.getHole(6),check);
         setText();
     }//GEN-LAST:event_jButton12ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
-        list.ShiftBean(list.getHole(9));
+        list.ShiftBean(list.getHole(9),check);
         setText();
     }//GEN-LAST:event_jButton2ActionPerformed
 
@@ -503,27 +566,33 @@ public class TestBuntumi extends javax.swing.JFrame{
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
-        list.ShiftBean(list.getHole(10));
+        list.ShiftBean(list.getHole(10),check);
         setText();
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
-        list.ShiftBean(list.getHole(11));
+        list.ShiftBean(list.getHole(11),check);
         setText();
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         // TODO add your handling code here:
-        list.ShiftBean(list.getHole(12));
+        list.ShiftBean(list.getHole(12),check);
         setText();
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         // TODO add your handling code here:
-        list.ShiftBean(list.getHole(13));
+        list.ShiftBean(list.getHole(13),check);
         setText();
     }//GEN-LAST:event_jButton6ActionPerformed
+
+    private void jButton13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton13ActionPerformed
+        // TODO add your handling code here:
+        i++;
+        check = checkUser(i);
+    }//GEN-LAST:event_jButton13ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -542,6 +611,7 @@ public class TestBuntumi extends javax.swing.JFrame{
     private javax.swing.JButton jButton10;
     private javax.swing.JButton jButton11;
     private javax.swing.JButton jButton12;
+    private javax.swing.JButton jButton13;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
