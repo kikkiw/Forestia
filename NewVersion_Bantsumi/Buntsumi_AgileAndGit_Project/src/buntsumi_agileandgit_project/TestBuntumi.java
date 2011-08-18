@@ -76,6 +76,21 @@ public class TestBuntumi extends javax.swing.JFrame {
         jButton10.setEnabled(true);
         jButton11.setEnabled(true);
         jButton12.setEnabled(true);
+        
+        jTextField1.setEnabled(false);
+        jTextField2.setEnabled(false);
+        jTextField3.setEnabled(false);
+        jTextField4.setEnabled(false);
+        jTextField5.setEnabled(false);
+        jTextField6.setEnabled(false);
+        jTextField7.setEnabled(false);
+        jTextField8.setEnabled(false);
+        jTextField9.setEnabled(false);
+        jTextField10.setEnabled(false);
+        jTextField11.setEnabled(false);
+        jTextField12.setEnabled(false);
+        jTextField13.setEnabled(false);
+        jTextField14.setEnabled(false);
     }
     
     /**
@@ -91,8 +106,8 @@ public class TestBuntumi extends javax.swing.JFrame {
         for(int j = 8;j<14;j++){
             sum2 = list.getHole(j).getBeans()+sum2;
         }
-        System.out.println("sum1: "+sum1);
-        System.out.println("sum2: "+sum2);
+//        System.out.println("sum1: "+sum1);
+//        System.out.println("sum2: "+sum2);
         if(sum1 == 0 || sum2 == 0){
             return true;
         }
@@ -400,23 +415,25 @@ public class TestBuntumi extends javax.swing.JFrame {
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         jPanel1.setBackground(new java.awt.Color(138, 88, 37));
+        jPanel1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jPanel1MouseClicked(evt);
+            }
+        });
 
         jPanel3.setBackground(new java.awt.Color(106, 106, 255));
         jPanel3.setPreferredSize(new java.awt.Dimension(430, 100));
 
         jTextField6.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jTextField6.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        jTextField6.setText("6");
 
         jTextField4.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jTextField4.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        jTextField4.setText("6");
 
         jTextField5.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jTextField5.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        jTextField5.setText("6");
 
-        jButton2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jButton2.setFont(new java.awt.Font("Tahoma", 0, 12));
         jButton2.setText("หยิบ");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -424,7 +441,7 @@ public class TestBuntumi extends javax.swing.JFrame {
             }
         });
 
-        jButton1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jButton1.setFont(new java.awt.Font("Tahoma", 0, 12));
         jButton1.setText("หยิบ");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -434,9 +451,8 @@ public class TestBuntumi extends javax.swing.JFrame {
 
         jTextField3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jTextField3.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        jTextField3.setText("6");
 
-        jButton6.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jButton6.setFont(new java.awt.Font("Tahoma", 0, 12));
         jButton6.setText("หยิบ");
         jButton6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -444,7 +460,7 @@ public class TestBuntumi extends javax.swing.JFrame {
             }
         });
 
-        jButton5.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jButton5.setFont(new java.awt.Font("Tahoma", 0, 12));
         jButton5.setText("หยิบ");
         jButton5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -452,7 +468,7 @@ public class TestBuntumi extends javax.swing.JFrame {
             }
         });
 
-        jButton4.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jButton4.setFont(new java.awt.Font("Tahoma", 0, 12));
         jButton4.setText("หยิบ");
         jButton4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -460,7 +476,7 @@ public class TestBuntumi extends javax.swing.JFrame {
             }
         });
 
-        jButton3.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jButton3.setFont(new java.awt.Font("Tahoma", 0, 12));
         jButton3.setText("หยิบ");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -470,11 +486,9 @@ public class TestBuntumi extends javax.swing.JFrame {
 
         jTextField2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jTextField2.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        jTextField2.setText("6");
 
         jTextField1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jTextField1.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        jTextField1.setText("6");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -535,7 +549,7 @@ public class TestBuntumi extends javax.swing.JFrame {
         jPanel6.setBackground(new java.awt.Color(255, 106, 106));
         jPanel6.setPreferredSize(new java.awt.Dimension(100, 100));
 
-        jTextField14.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        jTextField14.setFont(new java.awt.Font("Tahoma", 0, 24));
         jTextField14.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         jTextField14.setText("0");
 
@@ -559,7 +573,7 @@ public class TestBuntumi extends javax.swing.JFrame {
         jPanel4.setBackground(new java.awt.Color(106, 106, 255));
         jPanel4.setPreferredSize(new java.awt.Dimension(100, 100));
 
-        jTextField13.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        jTextField13.setFont(new java.awt.Font("Tahoma", 0, 24));
         jTextField13.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         jTextField13.setText("0");
         jTextField13.setPreferredSize(new java.awt.Dimension(20, 20));
@@ -584,7 +598,7 @@ public class TestBuntumi extends javax.swing.JFrame {
         jPanel5.setBackground(new java.awt.Color(255, 106, 106));
         jPanel5.setPreferredSize(new java.awt.Dimension(430, 100));
 
-        jButton12.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jButton12.setFont(new java.awt.Font("Tahoma", 0, 12));
         jButton12.setText("หยิบ");
         jButton12.setPreferredSize(new java.awt.Dimension(61, 33));
         jButton12.addActionListener(new java.awt.event.ActionListener() {
@@ -593,7 +607,7 @@ public class TestBuntumi extends javax.swing.JFrame {
             }
         });
 
-        jButton10.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jButton10.setFont(new java.awt.Font("Tahoma", 0, 12));
         jButton10.setText("หยิบ");
         jButton10.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -601,7 +615,7 @@ public class TestBuntumi extends javax.swing.JFrame {
             }
         });
 
-        jButton11.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jButton11.setFont(new java.awt.Font("Tahoma", 0, 12));
         jButton11.setText("หยิบ");
         jButton11.setPreferredSize(new java.awt.Dimension(61, 33));
         jButton11.addActionListener(new java.awt.event.ActionListener() {
@@ -610,7 +624,7 @@ public class TestBuntumi extends javax.swing.JFrame {
             }
         });
 
-        jButton8.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jButton8.setFont(new java.awt.Font("Tahoma", 0, 12));
         jButton8.setText("หยิบ");
         jButton8.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -618,7 +632,7 @@ public class TestBuntumi extends javax.swing.JFrame {
             }
         });
 
-        jButton9.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jButton9.setFont(new java.awt.Font("Tahoma", 0, 12));
         jButton9.setText("หยิบ");
         jButton9.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -626,7 +640,7 @@ public class TestBuntumi extends javax.swing.JFrame {
             }
         });
 
-        jButton7.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jButton7.setFont(new java.awt.Font("Tahoma", 0, 12));
         jButton7.setText("หยิบ");
         jButton7.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -636,27 +650,21 @@ public class TestBuntumi extends javax.swing.JFrame {
 
         jTextField8.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jTextField8.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        jTextField8.setText("6");
 
         jTextField7.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jTextField7.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        jTextField7.setText("6");
 
         jTextField9.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jTextField9.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        jTextField9.setText("6");
 
         jTextField10.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jTextField10.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        jTextField10.setText("6");
 
         jTextField11.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jTextField11.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        jTextField11.setText("6");
 
         jTextField12.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jTextField12.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        jTextField12.setText("6");
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -770,7 +778,7 @@ public class TestBuntumi extends javax.swing.JFrame {
         jMenuBar1.add(jMenu1);
 
         jMenu2.setText("ตั้งค่า");
-        jMenu2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jMenu2.setFont(new java.awt.Font("Tahoma", 0, 12));
 
         jMenu3.setText("จำนวนเมล็ดถั่ว");
         jMenu3.setFont(new java.awt.Font("Tahoma", 0, 12));
@@ -850,7 +858,7 @@ public class TestBuntumi extends javax.swing.JFrame {
         jMenuBar1.add(jMenu2);
 
         jMenu4.setText("เกี่ยวกับเรา");
-        jMenu4.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jMenu4.setFont(new java.awt.Font("Tahoma", 0, 12));
         jMenu4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenu4ActionPerformed(evt);
@@ -1073,6 +1081,11 @@ public class TestBuntumi extends javax.swing.JFrame {
         // TODO add your handling code here:
         //jTextField15.setText("Create by Forestia Group");
     }//GEN-LAST:event_jMenu4ActionPerformed
+
+    private void jPanel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MouseClicked
+        // TODO add your handling code here:
+        JOptionPane.showMessageDialog(null, "คลิกที่ปุ่มสิ ว้าย!!..โง่นี่ ^^");
+    }//GEN-LAST:event_jPanel1MouseClicked
 
     /**
      * @param args the command line arguments
