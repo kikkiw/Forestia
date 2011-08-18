@@ -13,7 +13,6 @@ package buntsumi_agileandgit_project;
 import java.awt.Color;
 import java.awt.Image;
 import java.awt.Toolkit;
-import javax.management.timer.Timer;
 import javax.swing.JOptionPane;
 
 /**
@@ -24,11 +23,12 @@ public class TestBuntumi extends javax.swing.JFrame {
     ListHole list;                      
     boolean check = true;               // ไว้ใช้ check ว่าเป็นตาเล่นของฝ่ายไหน
     int i = 0;                          // ไว้ใช้ check ในการเปิด-ปิดปุ่ม
-    int numBean = 4;    //ค่าตั้งตนของถั่ว
-    int countP1 = 0,countP2 = 0;
+    int numBean = 4;                    // ค่าตั้งตนของถั่ว
+    int countP1 = 0,countP2 = 0;        // ไว้ใช้ให้ check ว่าถ้าฝ่ายไหนชนะให้นับเพิ่มไป 1
+    boolean n;                          // ไว้ใช้ check message dialog
     
     //Ctreate List
-    public void CreateList(int numBean){
+    public final void CreateList(int numBean){
         list = new ListHole();      
         
         // ทำการเชื่อมหลุมทุกหลุมไว้ด้วยกัน
@@ -119,11 +119,11 @@ public class TestBuntumi extends javax.swing.JFrame {
      * @param end คือที่ check ว่าหลุมทุกหลุมของฝ่ายใดฝ่ายหนึ่งว่างเปล่า
      */
     public void finishGame(boolean end){
-        if(end == true){
-            int valP1 = list.getHole(7).getBeans();
-            int valP2 = list.getHole(14).getBeans();
+        if(end == true){        // ถ้ามีหลุมฝ่ายใดฝ่ายหนึ่งว่างเปล่า
+            int valP1 = list.getHole(7).getBeans();     // จำนวนถั่วในตะกร้าของ player 1
+            int valP2 = list.getHole(14).getBeans();    // จำนวนถั่วในตะกร้าของ player 2
             
-            if(valP1 > valP2){
+            if(valP1 > valP2){              // จำนวนถั่วของ player 1 มากกว่า       
                 countP1++;
                 JOptionPane.showMessageDialog(null
                         , "            Player 1 win!!\nPlayer 1 win: " + countP1 + "    Player 2 win: " + countP2
@@ -132,7 +132,7 @@ public class TestBuntumi extends javax.swing.JFrame {
                 CreateList(numBean);
                 setText();
             }
-            else if(valP1 < valP2){
+            else if(valP1 < valP2){         // จำนวนถั่วของ player 2 มากกว่า
                 countP2++;
                 JOptionPane.showMessageDialog(null
                         , "            Player 2 win!!\nPlayer 1 win: " + countP1 + "    Player 2 win: " + countP2
@@ -143,10 +143,15 @@ public class TestBuntumi extends javax.swing.JFrame {
             }    
         }
         else{
-            showDialogChangePlayer(check);
+            if(n != check){
+                showDialogChangePlayer(check);
+            }
         }
     }
     
+    /**
+     * method ใช้ set ค่าสีเริ่มต้น
+     */
     private void defaultBackground(){
             jTextField7.setBackground(Color.white);
             jTextField8.setBackground(Color.white);
@@ -155,6 +160,7 @@ public class TestBuntumi extends javax.swing.JFrame {
             jTextField11.setBackground(Color.white);
             jTextField12.setBackground(Color.white);
             jTextField14.setBackground(Color.white);
+            
             jTextField1.setBackground(Color.white);
             jTextField2.setBackground(Color.white);
             jTextField3.setBackground(Color.white);
@@ -164,37 +170,45 @@ public class TestBuntumi extends javax.swing.JFrame {
             jTextField13.setBackground(Color.white);
     }
     
+    /**
+     * method ใช้ทำการ set สีเส้นทางที่เดิน
+     * @param i 
+     */
     private void paintBackground(int i){
+        Color c = Color.black;
         if(i == 0)
-            jTextField7.setBackground(Color.red);
+            jTextField7.setBackground(c);
         else if(i == 1)
-            jTextField8.setBackground(Color.red);
+            jTextField8.setBackground(c);
         else if(i == 2)
-            jTextField9.setBackground(Color.red);
+            jTextField9.setBackground(c);
         else if(i == 3)
-            jTextField10.setBackground(Color.red);
+            jTextField10.setBackground(c);
         else if(i == 4)
-            jTextField11.setBackground(Color.red);
+            jTextField11.setBackground(c);
         else if(i == 5)
-            jTextField12.setBackground(Color.red);
+            jTextField12.setBackground(c);
         else if(i == 6)
-            jTextField14.setBackground(Color.red);
+            jTextField14.setBackground(c);
         else if(i == 7)
-            jTextField1.setBackground(Color.red);
+            jTextField1.setBackground(c);
         else if(i == 8)
-            jTextField2.setBackground(Color.red);
+            jTextField2.setBackground(c);
         else if(i == 9)
-            jTextField3.setBackground(Color.red);
+            jTextField3.setBackground(c);
         else if(i == 10)
-            jTextField4.setBackground(Color.red);
+            jTextField4.setBackground(c);
         else if(i == 11)
-            jTextField5.setBackground(Color.red);
+            jTextField5.setBackground(c);
         else if(i == 12)
-            jTextField6.setBackground(Color.red);
+            jTextField6.setBackground(c);
         else if(i == 13)
-            jTextField13.setBackground(Color.red);
+            jTextField13.setBackground(c);
     }
     
+    /**
+     * method ใช้มาร์กสีเส้นทางที่เดิน ของ turn นั้นๆ
+     */
     private void paintText(){
         String buf[] = new String[14]; 
         
@@ -234,9 +248,9 @@ public class TestBuntumi extends javax.swing.JFrame {
         buf2[12] = jTextField6.getText();
         buf2[13] = jTextField13.getText();
         
-        for(int i =0;i<14;i++){
-            if(buf[i].equals(buf2[i]) != true){
-                paintBackground(i);
+        for(int j =0;j<14;j++){
+            if(buf[j].equals(buf2[j]) != true){
+                paintBackground(j);
             }
         }
     }
@@ -312,6 +326,10 @@ public class TestBuntumi extends javax.swing.JFrame {
         }        
     }
     
+    /**
+     * method ใช้ show message dialog check turn ของผู้เล่น
+     * @param player ใช้ check turn ของผู้เล่น
+     */
     public void showDialogChangePlayer(boolean player){
         if(player == true){
             JOptionPane.showMessageDialog(null, "Player 1", 
@@ -549,7 +567,7 @@ public class TestBuntumi extends javax.swing.JFrame {
         jPanel6.setBackground(new java.awt.Color(255, 106, 106));
         jPanel6.setPreferredSize(new java.awt.Dimension(100, 100));
 
-        jTextField14.setFont(new java.awt.Font("Tahoma", 0, 24));
+        jTextField14.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jTextField14.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         jTextField14.setText("0");
 
@@ -573,7 +591,7 @@ public class TestBuntumi extends javax.swing.JFrame {
         jPanel4.setBackground(new java.awt.Color(106, 106, 255));
         jPanel4.setPreferredSize(new java.awt.Dimension(100, 100));
 
-        jTextField13.setFont(new java.awt.Font("Tahoma", 0, 24));
+        jTextField13.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jTextField13.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         jTextField13.setText("0");
         jTextField13.setPreferredSize(new java.awt.Dimension(20, 20));
@@ -889,6 +907,7 @@ public class TestBuntumi extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         defaultBackground();
+        n = check;
         checkPassHole(list.getHole(8), check);
         finishGame(checkEnd());
     }//GEN-LAST:event_jButton1ActionPerformed
@@ -900,6 +919,7 @@ public class TestBuntumi extends javax.swing.JFrame {
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
         // TODO add your handling code here:
         defaultBackground();
+        n = check;
         checkPassHole(list.getHole(1), check);
         finishGame(checkEnd());
     }//GEN-LAST:event_jButton7ActionPerformed
@@ -911,6 +931,7 @@ public class TestBuntumi extends javax.swing.JFrame {
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
         // TODO add your handling code here:
         defaultBackground();
+        n = check;
         checkPassHole(list.getHole(2), check);
         finishGame(checkEnd());
     }//GEN-LAST:event_jButton8ActionPerformed
@@ -922,6 +943,7 @@ public class TestBuntumi extends javax.swing.JFrame {
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
         // TODO add your handling code here:
         defaultBackground();
+        n = check;
         checkPassHole(list.getHole(3), check);
         finishGame(checkEnd());
     }//GEN-LAST:event_jButton9ActionPerformed
@@ -933,6 +955,7 @@ public class TestBuntumi extends javax.swing.JFrame {
     private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
         // TODO add your handling code here:
         defaultBackground();
+        n = check;
         checkPassHole(list.getHole(4), check);
         finishGame(checkEnd());
     }//GEN-LAST:event_jButton10ActionPerformed
@@ -944,6 +967,7 @@ public class TestBuntumi extends javax.swing.JFrame {
     private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
         // TODO add your handling code here:
         defaultBackground();
+        n = check;
         checkPassHole(list.getHole(5), check);
         finishGame(checkEnd());
     }//GEN-LAST:event_jButton11ActionPerformed
@@ -955,6 +979,7 @@ public class TestBuntumi extends javax.swing.JFrame {
     private void jButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton12ActionPerformed
         // TODO add your handling code here:
         defaultBackground();
+        n = check;
         checkPassHole(list.getHole(6), check);
         finishGame(checkEnd());
     }//GEN-LAST:event_jButton12ActionPerformed
@@ -966,6 +991,7 @@ public class TestBuntumi extends javax.swing.JFrame {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
         defaultBackground();
+        n = check;
         checkPassHole(list.getHole(9), check);
         finishGame(checkEnd());
     }//GEN-LAST:event_jButton2ActionPerformed
@@ -985,6 +1011,7 @@ public class TestBuntumi extends javax.swing.JFrame {
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
         defaultBackground();
+        n = check;
         checkPassHole(list.getHole(10), check);
         finishGame(checkEnd());
     }//GEN-LAST:event_jButton3ActionPerformed
@@ -996,6 +1023,7 @@ public class TestBuntumi extends javax.swing.JFrame {
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
         defaultBackground();
+        n = check;
         checkPassHole(list.getHole(11), check);
         finishGame(checkEnd());
     }//GEN-LAST:event_jButton4ActionPerformed
@@ -1007,6 +1035,7 @@ public class TestBuntumi extends javax.swing.JFrame {
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         // TODO add your handling code here:
         defaultBackground();
+        n = check;
         checkPassHole(list.getHole(12), check);
         finishGame(checkEnd());
     }//GEN-LAST:event_jButton5ActionPerformed
@@ -1018,6 +1047,7 @@ public class TestBuntumi extends javax.swing.JFrame {
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         // TODO add your handling code here:
         defaultBackground();
+        n = check;
         checkPassHole(list.getHole(13), check);  
         finishGame(checkEnd());
     }//GEN-LAST:event_jButton6ActionPerformed
@@ -1084,7 +1114,7 @@ public class TestBuntumi extends javax.swing.JFrame {
 
     private void jPanel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MouseClicked
         // TODO add your handling code here:
-        JOptionPane.showMessageDialog(null, "คลิกที่ปุ่มสิ ว้าย!!..โง่นี่ ^^");
+        JOptionPane.showMessageDialog(null, "แน่ะๆ!! รู้นะว่าคิดอะไร อิอิ^^", "Not Button", JOptionPane.ERROR_MESSAGE);
     }//GEN-LAST:event_jPanel1MouseClicked
 
     /**
