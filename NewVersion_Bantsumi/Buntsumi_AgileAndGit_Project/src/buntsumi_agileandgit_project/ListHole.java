@@ -17,13 +17,14 @@ public class ListHole {
      * method ที่ใช้สร้างลิส
      * @param value เปรียบเสมือนจำนวนถั่วในหลุมนั้นๆ
      * @param numHole คือ ลำดับเลขของหลุม เปรียบเสมือนชื่อหลุม
+     * @param oppHole หลุมตรงข้าม
      */
-    public void add(int value,int numHole){
+    public void add(int value,int numHole,int oppHole){
         if(head == null){                   //empty list
-            head = new Hole(value,numHole,null);
+            head = new Hole(value,numHole,oppHole,null);
             last = head;
         }else{
-            last.next = new Hole(value,numHole,null);
+            last.next = new Hole(value,numHole,oppHole,null);
             last = last.next;
             last.next = head;
         }
@@ -64,6 +65,7 @@ public class ListHole {
      * @param check ไว้ใช้ check ตาของผู้เล่น
      */
     public void ShiftBean(Hole pointer, boolean check){
+        int first = pointer.getNumHole();
         int amount = pointer.getBeans();         // เปรียบเสมือนการหยิบถั่วออกมาจากหลุม
         pointer.setBeans(0);                     // set ค่าให้หลุมนั้นว่างเปล่า
         for(int i = 0;i<amount;i++){
@@ -86,7 +88,43 @@ public class ListHole {
                 }
                 int shiftBean = pointer.getBeans()+1;    // หยอดถั่วในหลุมต่อไปทีละ 1
                 pointer.setBeans(shiftBean);             // set ค่าถั่วในหลุมนั้นๆ
-            }   
+            }  
+            
+            //ใส่เงื่อนไขการขโมย
+            if(i == amount-1 && pointer.getBeans()==1 
+                    && CheckOpposite(this.getHole(first),
+                    (amount+this.getHole(first).getNumHole())%14)
+                    && pointer.getNumHole()!= 7 && pointer.getNumHole() != 14 ){
+                int point;
+                int stealPoint = this.stealBeans(pointer);
+                if(check == false){
+                    point = this.getHole(14).getBeans();
+                    point = point+stealPoint;
+                    this.getHole(14).setBeans(point);
+                }else{
+                    point = this.getHole(7).getBeans();
+                    point = point+stealPoint;
+                    this.getHole(7).setBeans(point);
+                }
+            }
         }
+    }
+    
+    public int stealBeans(Hole pointer){
+        int amount = pointer.getBeans();
+        pointer.setBeans(0);
+        pointer = this.getHole(pointer.getOppositeHole());
+        int steal = pointer.getBeans();
+        pointer.setBeans(0);
+        return amount+steal;
+    }
+    
+    public boolean CheckOpposite(Hole pointer,int last){
+        if(pointer.getNumHole() < 8 && last > 7){
+            return false;
+        }else if(pointer.getNumHole() > 7 && last < 8){
+            return false;
+        }
+        return true;
     }
 }

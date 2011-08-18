@@ -23,29 +23,28 @@ public class TestBuntumi extends javax.swing.JFrame {
     ListHole list;                      
     boolean check = true;               // ไว้ใช้ check ว่าเป็นตาเล่นของฝ่ายไหน
     int i = 0;                          // ไว้ใช้ check ในการเปิด-ปิดปุ่ม
-//    int still = 1;
-//    int sum = 0;
     int numBean = 4;    //ค่าตั้งตนของถั่ว
+    int countP1 = 0,countP2 = 0;
     
     //Ctreate List
     public void CreateList(int numBean){
         list = new ListHole();      
         
         // ทำการเชื่อมหลุมทุกหลุมไว้ด้วยกัน
-        list.add(numBean,1);        
-        list.add(numBean,2);
-        list.add(numBean,3);
-        list.add(numBean,4);
-        list.add(numBean,5);
-        list.add(numBean,6);  
-        list.add(0,7);                      // ตะกร้าผู้เล่น 1
-        list.add(numBean,8);
-        list.add(numBean,9);
-        list.add(numBean,10);
-        list.add(numBean,11);
-        list.add(numBean,12);
-        list.add(numBean,13);
-        list.add(0,14);                     // ตะกร้าผู้เล่น 2
+        list.add(numBean,1,13);        
+        list.add(numBean,2,12);
+        list.add(numBean,3,11);
+        list.add(numBean,4,10);
+        list.add(numBean,5,9);
+        list.add(numBean,6,8);  
+        list.add(0,7,0);                      // ตะกร้าผู้เล่น 1
+        list.add(numBean,8,6);
+        list.add(numBean,9,5);
+        list.add(numBean,10,4);
+        list.add(numBean,11,3);
+        list.add(numBean,12,2);
+        list.add(numBean,13,1);
+        list.add(0,14,0);                     // ตะกร้าผู้เล่น 2
     }
     
     /** Creates new form TestBuntumi */
@@ -55,7 +54,6 @@ public class TestBuntumi extends javax.swing.JFrame {
         Image img = kit.getImage("Bean-icon.gif");
         setIconImage(img);
         
-        //Create List
         CreateList(numBean);
         
         //list.listAll();
@@ -77,6 +75,57 @@ public class TestBuntumi extends javax.swing.JFrame {
         jButton10.setEnabled(true);
         jButton11.setEnabled(true);
         jButton12.setEnabled(true);
+    }
+    
+    /**
+     * method check ว่าในหลุมทุกหลุุมของฝ่ายใดฝ่ายหนึ่งว่างเปล่าหรือไม่
+     * @return true เมื่อหลุมทุกหลุมของฝ่ายใดฝ่ายหนึ่งว่างเปล่า
+     */
+    private boolean checkEnd(){
+        int sum1=0;
+        int sum2=0;
+        for(int j = 1;j<7;j++){
+            sum1 = sum1+list.getHole(j).getBeans();
+        }
+        for(int j = 8;j<14;j++){
+            sum2 = list.getHole(j).getBeans()+sum2;
+        }
+        System.out.println("sum1: "+sum1);
+        System.out.println("sum2: "+sum2);
+        if(sum1 == 0 || sum2 == 0){
+            return true;
+        }
+        return false;
+    } 
+    
+    /**
+     * method check การจบเกม
+     * @param end คือที่ check ว่าหลุมทุกหลุมของฝ่ายใดฝ่ายหนึ่งว่างเปล่า
+     */
+    public void finishGame(boolean end){
+        if(end == true){
+            int valP1 = list.getHole(7).getBeans();
+            int valP2 = list.getHole(14).getBeans();
+            
+            if(valP1 > valP2){
+                countP1++;
+                JOptionPane.showMessageDialog(null
+                        , "            Player 1 win!!\nPlayer 1 win: " + countP1 + "    Player 2 win: " + countP2
+                        , "Finish Game", JOptionPane.INFORMATION_MESSAGE);
+                
+                CreateList(numBean);
+                setText();
+            }
+            else if(valP1 < valP2){
+                countP2++;
+                JOptionPane.showMessageDialog(null
+                        , "            Player 2 win!!\nPlayer 1 win: " + countP1 + "    Player 2 win: " + countP2
+                        , "Finish Game", JOptionPane.INFORMATION_MESSAGE);
+                
+                CreateList(numBean);
+                setText();
+            }    
+        }
     }
     
     /**
@@ -122,6 +171,8 @@ public class TestBuntumi extends javax.swing.JFrame {
             jButton11.setEnabled(false);
             jButton12.setEnabled(false);
             
+            //JOptionPane.showMessageDialog(null, "Player 2");
+
             return false;
         }
         else {
@@ -140,11 +191,45 @@ public class TestBuntumi extends javax.swing.JFrame {
             jButton11.setEnabled(true);
             jButton12.setEnabled(true);
             
+            //JOptionPane.showMessageDialog(null, "Player 1");
+            
             return true;
+        }        
+    }
+    
+    /**
+     * method ใช้ check การเดินของแต่ละฝ่าย
+     * @param hole หลุมที่ต้องการ
+     * @param player ไว้ใช้ check ว่าเป็นตาของผู้เล่นฝ่ายไหนเล่นอยู่
+     */
+    public void checkPassHole(Hole hole, boolean player){
+        if(player == true){             // Player 1
+            if((hole.getBeans()) != (7 - hole.getNumHole())){
+                list.ShiftBean(hole,check);
+                setText();
+                i++;
+                check = checkUser(i);
+            }
+            else{
+                list.ShiftBean(hole,check);
+                setText(); 
+            }
+        }
+        else{                           // Player 2
+            if((hole.getBeans()) != (14 - hole.getNumHole())){
+                list.ShiftBean(hole,check);
+                setText();
+                i++;
+                check = checkUser(i);
+            }
+            else{
+                list.ShiftBean(hole,check);
+                setText(); 
+            }
         }
         
     }
-
+    
     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is
@@ -686,17 +771,8 @@ public class TestBuntumi extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         
-        if((list.getHole(8).getBeans()) != (14 - list.getHole(8).getNumHole())){
-            list.ShiftBean(list.getHole(8),check);
-            setText();
-            i++;
-            check = checkUser(i);
-        }
-        else{
-            
-            list.ShiftBean(list.getHole(8),check);
-            setText(); 
-        }
+        checkPassHole(list.getHole(8), check);
+        finishGame(checkEnd());
         
 //        if(list.still.next == list.getHole(8) && list.getHole(8).getBeans() == 1){
 //            still += list.getHole(6).getBeans();
@@ -715,16 +791,8 @@ public class TestBuntumi extends javax.swing.JFrame {
      */
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
         // TODO add your handling code here:
-        if((list.getHole(1).getBeans()) != (7 - list.getHole(1).getNumHole())){
-            list.ShiftBean(list.getHole(1),check);
-            setText();
-            i++;
-            check = checkUser(i);
-        }
-        else{
-            list.ShiftBean(list.getHole(1),check);
-            setText(); 
-        }
+        checkPassHole(list.getHole(1), check);
+        finishGame(checkEnd());
     }//GEN-LAST:event_jButton7ActionPerformed
 
     /**
@@ -733,16 +801,8 @@ public class TestBuntumi extends javax.swing.JFrame {
      */
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
         // TODO add your handling code here:
-        if((list.getHole(2).getBeans()) != (7 - list.getHole(2).getNumHole())){
-            list.ShiftBean(list.getHole(2),check);
-            setText();
-            i++;
-            check = checkUser(i);
-        }
-        else{
-            list.ShiftBean(list.getHole(2),check);
-            setText(); 
-        }
+        checkPassHole(list.getHole(2), check);
+        finishGame(checkEnd());
     }//GEN-LAST:event_jButton8ActionPerformed
 
     /**
@@ -751,16 +811,8 @@ public class TestBuntumi extends javax.swing.JFrame {
      */
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
         // TODO add your handling code here:
-        if((list.getHole(3).getBeans()) != (7 - list.getHole(3).getNumHole())){
-            list.ShiftBean(list.getHole(3),check);
-            setText();
-            i++;
-            check = checkUser(i);
-        }
-        else{
-            list.ShiftBean(list.getHole(3),check);
-            setText(); 
-        }
+        checkPassHole(list.getHole(3), check);
+        finishGame(checkEnd());
     }//GEN-LAST:event_jButton9ActionPerformed
 
     /**
@@ -769,16 +821,8 @@ public class TestBuntumi extends javax.swing.JFrame {
      */
     private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
         // TODO add your handling code here:
-        if((list.getHole(4).getBeans()) != (7 - list.getHole(4).getNumHole())){
-            list.ShiftBean(list.getHole(4),check);
-            setText();
-            i++;
-            check = checkUser(i);
-        }
-        else{
-            list.ShiftBean(list.getHole(4),check);
-            setText(); 
-        }
+        checkPassHole(list.getHole(4), check);
+        finishGame(checkEnd());
     }//GEN-LAST:event_jButton10ActionPerformed
 
     /**
@@ -787,16 +831,8 @@ public class TestBuntumi extends javax.swing.JFrame {
      */
     private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
         // TODO add your handling code here:
-        if((list.getHole(5).getBeans()) != (7 - list.getHole(5).getNumHole())){
-            list.ShiftBean(list.getHole(5),check);
-            setText();
-            i++;
-            check = checkUser(i);
-        }
-        else{
-            list.ShiftBean(list.getHole(5),check);
-            setText(); 
-        }
+        checkPassHole(list.getHole(5), check);
+        finishGame(checkEnd());
     }//GEN-LAST:event_jButton11ActionPerformed
 
     /**
@@ -805,16 +841,8 @@ public class TestBuntumi extends javax.swing.JFrame {
      */
     private void jButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton12ActionPerformed
         // TODO add your handling code here:
-        if((list.getHole(6).getBeans()) != (7 - list.getHole(6).getNumHole())){
-            list.ShiftBean(list.getHole(6),check);
-            setText();
-            i++;
-            check = checkUser(i);
-        }
-        else{
-            list.ShiftBean(list.getHole(6),check);
-            setText(); 
-        }
+        checkPassHole(list.getHole(6), check);
+        finishGame(checkEnd());
     }//GEN-LAST:event_jButton12ActionPerformed
 
     /**
@@ -823,16 +851,8 @@ public class TestBuntumi extends javax.swing.JFrame {
      */
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
-        if((list.getHole(9).getBeans()) != (14 - list.getHole(9).getNumHole())){
-            list.ShiftBean(list.getHole(9),check);
-            setText();
-            i++;
-            check = checkUser(i);
-        }
-        else{
-            list.ShiftBean(list.getHole(9),check);
-            setText(); 
-        }
+        checkPassHole(list.getHole(9), check);
+        finishGame(checkEnd());
     }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
@@ -849,16 +869,8 @@ public class TestBuntumi extends javax.swing.JFrame {
      */
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
-        if((list.getHole(10).getBeans()) != (14 - list.getHole(10).getNumHole())){
-            list.ShiftBean(list.getHole(10),check);
-            setText();
-            i++;
-            check = checkUser(i);
-        }
-        else{
-            list.ShiftBean(list.getHole(10),check);
-            setText(); 
-        }
+        checkPassHole(list.getHole(10), check);
+        finishGame(checkEnd());
     }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
@@ -867,16 +879,8 @@ public class TestBuntumi extends javax.swing.JFrame {
      */
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
-        if((list.getHole(11).getBeans()) != (14 - list.getHole(11).getNumHole())){
-            list.ShiftBean(list.getHole(11),check);
-            setText();
-            i++;
-            check = checkUser(i);
-        }
-        else{
-            list.ShiftBean(list.getHole(11),check);
-            setText(); 
-        }
+        checkPassHole(list.getHole(11), check);
+        finishGame(checkEnd());
     }//GEN-LAST:event_jButton4ActionPerformed
 
     /**
@@ -885,16 +889,8 @@ public class TestBuntumi extends javax.swing.JFrame {
      */
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         // TODO add your handling code here:
-        if((list.getHole(12).getBeans()) != (14 - list.getHole(12).getNumHole())){
-            list.ShiftBean(list.getHole(12),check);
-            setText();
-            i++;
-            check = checkUser(i);
-        }
-        else{
-            list.ShiftBean(list.getHole(12),check);
-            setText(); 
-        }
+        checkPassHole(list.getHole(12), check);
+        finishGame(checkEnd());
     }//GEN-LAST:event_jButton5ActionPerformed
 
     /**
@@ -903,17 +899,8 @@ public class TestBuntumi extends javax.swing.JFrame {
      */
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         // TODO add your handling code here:
-        if((list.getHole(13).getBeans()) != (14 - list.getHole(13).getNumHole())){
-            list.ShiftBean(list.getHole(13),check);
-            setText();
-            i++;
-            check = checkUser(i);
-        }
-        else{
-            list.ShiftBean(list.getHole(13),check);
-            setText(); 
-        }
-               
+        checkPassHole(list.getHole(13), check);  
+        finishGame(checkEnd());
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
