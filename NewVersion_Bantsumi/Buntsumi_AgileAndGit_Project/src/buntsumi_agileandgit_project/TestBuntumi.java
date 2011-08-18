@@ -10,6 +10,7 @@
  */
 package buntsumi_agileandgit_project;
 
+import java.awt.Color;
 import java.awt.Image;
 import java.awt.Toolkit;
 import javax.management.timer.Timer;
@@ -126,6 +127,103 @@ public class TestBuntumi extends javax.swing.JFrame {
                 setText();
             }    
         }
+        else{
+            showDialogChangePlayer(check);
+        }
+    }
+    
+    private void defaultBackground(){
+            jTextField7.setBackground(Color.white);
+            jTextField8.setBackground(Color.white);
+            jTextField9.setBackground(Color.white);
+            jTextField10.setBackground(Color.white);
+            jTextField11.setBackground(Color.white);
+            jTextField12.setBackground(Color.white);
+            jTextField14.setBackground(Color.white);
+            jTextField1.setBackground(Color.white);
+            jTextField2.setBackground(Color.white);
+            jTextField3.setBackground(Color.white);
+            jTextField4.setBackground(Color.white);
+            jTextField5.setBackground(Color.white);
+            jTextField6.setBackground(Color.white);
+            jTextField13.setBackground(Color.white);
+    }
+    
+    private void paintBackground(int i){
+        if(i == 0)
+            jTextField7.setBackground(Color.red);
+        else if(i == 1)
+            jTextField8.setBackground(Color.red);
+        else if(i == 2)
+            jTextField9.setBackground(Color.red);
+        else if(i == 3)
+            jTextField10.setBackground(Color.red);
+        else if(i == 4)
+            jTextField11.setBackground(Color.red);
+        else if(i == 5)
+            jTextField12.setBackground(Color.red);
+        else if(i == 6)
+            jTextField14.setBackground(Color.red);
+        else if(i == 7)
+            jTextField1.setBackground(Color.red);
+        else if(i == 8)
+            jTextField2.setBackground(Color.red);
+        else if(i == 9)
+            jTextField3.setBackground(Color.red);
+        else if(i == 10)
+            jTextField4.setBackground(Color.red);
+        else if(i == 11)
+            jTextField5.setBackground(Color.red);
+        else if(i == 12)
+            jTextField6.setBackground(Color.red);
+        else if(i == 13)
+            jTextField13.setBackground(Color.red);
+    }
+    
+    private void paintText(){
+        String buf[] = new String[14]; 
+        
+        buf[0] = jTextField7.getText();
+        buf[1] = jTextField8.getText();
+        buf[2] = jTextField9.getText();
+        buf[3] = jTextField10.getText();
+        buf[4] = jTextField11.getText();
+        buf[5] = jTextField12.getText();
+        buf[6] = jTextField14.getText();
+        
+        buf[7] = jTextField1.getText();
+        buf[8] = jTextField2.getText();
+        buf[9] = jTextField3.getText();
+        buf[10] = jTextField4.getText();
+        buf[11] = jTextField5.getText();
+        buf[12] = jTextField6.getText();
+        buf[13] = jTextField13.getText();
+        
+        setText();
+        
+        String buf2[] = new String[14]; 
+        
+        buf2[0] = jTextField7.getText();
+        buf2[1] = jTextField8.getText();
+        buf2[2] = jTextField9.getText();
+        buf2[3] = jTextField10.getText();
+        buf2[4] = jTextField11.getText();
+        buf2[5] = jTextField12.getText();
+        buf2[6] = jTextField14.getText();
+        
+        buf2[7] = jTextField1.getText();
+        buf2[8] = jTextField2.getText();
+        buf2[9] = jTextField3.getText();
+        buf2[10] = jTextField4.getText();
+        buf2[11] = jTextField5.getText();
+        buf2[12] = jTextField6.getText();
+        buf2[13] = jTextField13.getText();
+        
+        for(int i =0;i<14;i++){
+            if(buf[i].equals(buf2[i]) != true){
+                paintBackground(i);
+            }
+        }
     }
     
     /**
@@ -171,7 +269,8 @@ public class TestBuntumi extends javax.swing.JFrame {
             jButton11.setEnabled(false);
             jButton12.setEnabled(false);
             
-            //JOptionPane.showMessageDialog(null, "Player 2");
+//            JOptionPane.showMessageDialog(null, "Player 2",
+//                    "Chang Turn", JOptionPane.WARNING_MESSAGE);
 
             return false;
         }
@@ -191,10 +290,22 @@ public class TestBuntumi extends javax.swing.JFrame {
             jButton11.setEnabled(true);
             jButton12.setEnabled(true);
             
-            //JOptionPane.showMessageDialog(null, "Player 1");
+//            JOptionPane.showMessageDialog(null, "Player 1", 
+//                    "Chang Turn", JOptionPane.WARNING_MESSAGE);
             
             return true;
         }        
+    }
+    
+    public void showDialogChangePlayer(boolean player){
+        if(player == true){
+            JOptionPane.showMessageDialog(null, "Player 1", 
+                    "Change Turn", JOptionPane.WARNING_MESSAGE);
+        }
+        else{
+            JOptionPane.showMessageDialog(null, "Player 2", 
+                    "Change Turn", JOptionPane.WARNING_MESSAGE);
+        }
     }
     
     /**
@@ -206,28 +317,27 @@ public class TestBuntumi extends javax.swing.JFrame {
         if(player == true){             // Player 1
             if((hole.getBeans()) != (7 - hole.getNumHole())){
                 list.ShiftBean(hole,check);
-                setText();
+                paintText();
                 i++;
                 check = checkUser(i);
             }
             else{
                 list.ShiftBean(hole,check);
-                setText(); 
+                paintText(); 
             }
         }
         else{                           // Player 2
             if((hole.getBeans()) != (14 - hole.getNumHole())){
                 list.ShiftBean(hole,check);
-                setText();
+                paintText();
                 i++;
                 check = checkUser(i);
             }
             else{
                 list.ShiftBean(hole,check);
-                setText(); 
+                paintText(); 
             }
-        }
-        
+        }       
     }
     
     /** This method is called from within the constructor to
@@ -770,19 +880,9 @@ public class TestBuntumi extends javax.swing.JFrame {
      */
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        
+        defaultBackground();
         checkPassHole(list.getHole(8), check);
         finishGame(checkEnd());
-        
-//        if(list.still.next == list.getHole(8) && list.getHole(8).getBeans() == 1){
-//            still += list.getHole(6).getBeans();
-//            list.getHole(6).setBeans(0);
-//            list.getHole(8).setBeans(0);
-//            
-//            sum = list.getHole(14).getBeans() + still;
-//            list.getHole(14).setBeans(sum);
-//            setText();
-//        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
@@ -791,6 +891,7 @@ public class TestBuntumi extends javax.swing.JFrame {
      */
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
         // TODO add your handling code here:
+        defaultBackground();
         checkPassHole(list.getHole(1), check);
         finishGame(checkEnd());
     }//GEN-LAST:event_jButton7ActionPerformed
@@ -801,6 +902,7 @@ public class TestBuntumi extends javax.swing.JFrame {
      */
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
         // TODO add your handling code here:
+        defaultBackground();
         checkPassHole(list.getHole(2), check);
         finishGame(checkEnd());
     }//GEN-LAST:event_jButton8ActionPerformed
@@ -811,6 +913,7 @@ public class TestBuntumi extends javax.swing.JFrame {
      */
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
         // TODO add your handling code here:
+        defaultBackground();
         checkPassHole(list.getHole(3), check);
         finishGame(checkEnd());
     }//GEN-LAST:event_jButton9ActionPerformed
@@ -821,6 +924,7 @@ public class TestBuntumi extends javax.swing.JFrame {
      */
     private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
         // TODO add your handling code here:
+        defaultBackground();
         checkPassHole(list.getHole(4), check);
         finishGame(checkEnd());
     }//GEN-LAST:event_jButton10ActionPerformed
@@ -831,6 +935,7 @@ public class TestBuntumi extends javax.swing.JFrame {
      */
     private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
         // TODO add your handling code here:
+        defaultBackground();
         checkPassHole(list.getHole(5), check);
         finishGame(checkEnd());
     }//GEN-LAST:event_jButton11ActionPerformed
@@ -841,6 +946,7 @@ public class TestBuntumi extends javax.swing.JFrame {
      */
     private void jButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton12ActionPerformed
         // TODO add your handling code here:
+        defaultBackground();
         checkPassHole(list.getHole(6), check);
         finishGame(checkEnd());
     }//GEN-LAST:event_jButton12ActionPerformed
@@ -851,6 +957,7 @@ public class TestBuntumi extends javax.swing.JFrame {
      */
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
+        defaultBackground();
         checkPassHole(list.getHole(9), check);
         finishGame(checkEnd());
     }//GEN-LAST:event_jButton2ActionPerformed
@@ -869,6 +976,7 @@ public class TestBuntumi extends javax.swing.JFrame {
      */
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
+        defaultBackground();
         checkPassHole(list.getHole(10), check);
         finishGame(checkEnd());
     }//GEN-LAST:event_jButton3ActionPerformed
@@ -879,6 +987,7 @@ public class TestBuntumi extends javax.swing.JFrame {
      */
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
+        defaultBackground();
         checkPassHole(list.getHole(11), check);
         finishGame(checkEnd());
     }//GEN-LAST:event_jButton4ActionPerformed
@@ -889,6 +998,7 @@ public class TestBuntumi extends javax.swing.JFrame {
      */
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         // TODO add your handling code here:
+        defaultBackground();
         checkPassHole(list.getHole(12), check);
         finishGame(checkEnd());
     }//GEN-LAST:event_jButton5ActionPerformed
@@ -899,6 +1009,7 @@ public class TestBuntumi extends javax.swing.JFrame {
      */
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         // TODO add your handling code here:
+        defaultBackground();
         checkPassHole(list.getHole(13), check);  
         finishGame(checkEnd());
     }//GEN-LAST:event_jButton6ActionPerformed
