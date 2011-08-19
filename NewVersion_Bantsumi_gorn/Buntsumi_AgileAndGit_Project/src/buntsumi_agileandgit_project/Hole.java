@@ -27,7 +27,10 @@ public class Hole {
         this.oppositeHole = opp;
         this.next = next;
     }
-
+    
+    /**
+     * @return the opposite hole
+     */
     public int getOppositeHole() {
         return oppositeHole;
     }

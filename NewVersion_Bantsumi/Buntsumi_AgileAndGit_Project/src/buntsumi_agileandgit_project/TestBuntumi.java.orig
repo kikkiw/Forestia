@@ -26,8 +26,6 @@ public class TestBuntumi extends javax.swing.JFrame {
     int numBean = 4;                    // ค่าตั้งตนของถั่ว
     int countP1 = 0,countP2 = 0;        // ไว้ใช้ให้ check ว่าถ้าฝ่ายไหนชนะให้นับเพิ่มไป 1
     boolean n;                          // ไว้ใช้ check message dialog
-    int sum1 = 0;                       // ใช้เก็บผลรวมของถั่วในหลุมของผู้เล่น 1 ทั้งหมด
-    int sum2 = 0;                       // ใช้เก็บผลรวมของถั่วในหลุมของผู้เล่น 2 ทั้งหมด
     
     //Ctreate List
     public final void CreateList(int numBean){
@@ -101,6 +99,8 @@ public class TestBuntumi extends javax.swing.JFrame {
      * @return true เมื่อหลุมทุกหลุมของฝ่ายใดฝ่ายหนึ่งว่างเปล่า
      */
     private boolean checkEnd(){
+        int sum1=0;
+        int sum2=0;
         for(int j = 1;j<7;j++){
             sum1 = sum1+list.getHole(j).getBeans();
         }
@@ -129,7 +129,7 @@ public class TestBuntumi extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null
                         , "            Player 1 win!!\nPlayer 1 win: " + countP1 + "    Player 2 win: " + countP2
                         , "Finish Game", JOptionPane.INFORMATION_MESSAGE);
-                defaultBackground();
+                
                 CreateList(numBean);
                 setText();
             }
@@ -138,30 +138,10 @@ public class TestBuntumi extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null
                         , "            Player 2 win!!\nPlayer 1 win: " + countP1 + "    Player 2 win: " + countP2
                         , "Finish Game", JOptionPane.INFORMATION_MESSAGE);
-                defaultBackground();
+                
                 CreateList(numBean);
                 setText();
-            }
-            else{                           // จำนวนถั่วในตะกร้าเท่ากัน
-                if(sum1 > sum2){            // check ว่าผู้เล่น 1 ยังมีถั่วอยู่ในหลุมจะเป็นฝ่ายชนะ
-                    countP1++;
-                    JOptionPane.showMessageDialog(null
-                        , "            Player 1 win!!\nPlayer 1 win: " + countP1 + "    Player 2 win: " + countP2
-                        , "Finish Game", JOptionPane.INFORMATION_MESSAGE);
-                    defaultBackground();
-                    CreateList(numBean);
-                    setText();
-                }
-                else if(sum1 < sum2){       // check ว่าผู้เล่น 1 ยังมีถั่วอยู่ในหลุมจะเป็นฝ่ายชนะ
-                    countP2++;
-                    JOptionPane.showMessageDialog(null
-                        , "            Player 2 win!!\nPlayer 1 win: " + countP1 + "    Player 2 win: " + countP2
-                        , "Finish Game", JOptionPane.INFORMATION_MESSAGE);
-                    defaultBackground();
-                    CreateList(numBean);
-                    setText();
-                }
-            }
+            }    
         }
         else{
             if(n != check){
@@ -231,7 +211,7 @@ public class TestBuntumi extends javax.swing.JFrame {
     /**
      * method ใช้มาร์กสีเส้นทางที่เดิน ของ turn นั้นๆ
      */
-    private void paintText(){
+    public void paintText(){
         String buf[] = new String[14]; 
         
         buf[0] = jTextField7.getText();
@@ -370,7 +350,7 @@ public class TestBuntumi extends javax.swing.JFrame {
      */
     public void checkPassHole(Hole hole, boolean player){
         if(player == true){             // Player 1
-            if((hole.getBeans()) != (7 - hole.getNumHole())){
+            if(hole.getBeans() != (7 - hole.getNumHole())){
                 list.ShiftBean(hole,check);
                 paintText();
                 i++;
@@ -382,7 +362,7 @@ public class TestBuntumi extends javax.swing.JFrame {
             }
         }
         else{                           // Player 2
-            if((hole.getBeans()) != (14 - hole.getNumHole())){
+            if(hole.getBeans() != (14 - hole.getNumHole())){
                 list.ShiftBean(hole,check);
                 paintText();
                 i++;
@@ -448,95 +428,86 @@ public class TestBuntumi extends javax.swing.JFrame {
         jMenuItem7 = new javax.swing.JMenuItem();
         jMenuItem8 = new javax.swing.JMenuItem();
         jMenuItem9 = new javax.swing.JMenuItem();
-        jMenu5 = new javax.swing.JMenu();
-        jMenuItem10 = new javax.swing.JMenuItem();
-        jMenuItem11 = new javax.swing.JMenuItem();
+        jMenu4 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Bantsumi");
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         jPanel1.setBackground(new java.awt.Color(138, 88, 37));
+        jPanel1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jPanel1MouseClicked(evt);
+            }
+        });
 
         jPanel3.setBackground(new java.awt.Color(106, 106, 255));
         jPanel3.setPreferredSize(new java.awt.Dimension(430, 100));
 
-        jTextField6.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jTextField6.setFont(new java.awt.Font("Tahoma", 0, 14));
         jTextField6.setHorizontalAlignment(javax.swing.JTextField.CENTER);
 
-        jTextField4.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jTextField4.setFont(new java.awt.Font("Tahoma", 0, 14));
         jTextField4.setHorizontalAlignment(javax.swing.JTextField.CENTER);
 
-        jTextField5.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jTextField5.setFont(new java.awt.Font("Tahoma", 0, 14));
         jTextField5.setHorizontalAlignment(javax.swing.JTextField.CENTER);
 
-        jButton2.setBackground(new java.awt.Color(153, 255, 102));
-        jButton2.setFont(new java.awt.Font("Tahoma", 0, 14));
+        jButton2.setFont(new java.awt.Font("Tahoma", 0, 12));
         jButton2.setText("หยิบ");
-        jButton2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
             }
         });
 
-        jButton1.setBackground(new java.awt.Color(153, 255, 102));
-        jButton1.setFont(new java.awt.Font("Tahoma", 0, 14));
+        jButton1.setFont(new java.awt.Font("Tahoma", 0, 12));
         jButton1.setText("หยิบ");
-        jButton1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
             }
         });
 
-        jTextField3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jTextField3.setFont(new java.awt.Font("Tahoma", 0, 14));
         jTextField3.setHorizontalAlignment(javax.swing.JTextField.CENTER);
 
-        jButton6.setBackground(new java.awt.Color(153, 255, 102));
-        jButton6.setFont(new java.awt.Font("Tahoma", 0, 14));
+        jButton6.setFont(new java.awt.Font("Tahoma", 0, 12));
         jButton6.setText("หยิบ");
-        jButton6.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jButton6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton6ActionPerformed(evt);
             }
         });
 
-        jButton5.setBackground(new java.awt.Color(153, 255, 102));
-        jButton5.setFont(new java.awt.Font("Tahoma", 0, 14));
+        jButton5.setFont(new java.awt.Font("Tahoma", 0, 12));
         jButton5.setText("หยิบ");
-        jButton5.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jButton5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton5ActionPerformed(evt);
             }
         });
 
-        jButton4.setBackground(new java.awt.Color(153, 255, 102));
-        jButton4.setFont(new java.awt.Font("Tahoma", 0, 14));
+        jButton4.setFont(new java.awt.Font("Tahoma", 0, 12));
         jButton4.setText("หยิบ");
-        jButton4.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jButton4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton4ActionPerformed(evt);
             }
         });
 
-        jButton3.setBackground(new java.awt.Color(153, 255, 102));
-        jButton3.setFont(new java.awt.Font("Tahoma", 0, 14));
+        jButton3.setFont(new java.awt.Font("Tahoma", 0, 12));
         jButton3.setText("หยิบ");
-        jButton3.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton3ActionPerformed(evt);
             }
         });
 
-        jTextField2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jTextField2.setFont(new java.awt.Font("Tahoma", 0, 14));
         jTextField2.setHorizontalAlignment(javax.swing.JTextField.CENTER);
 
-        jTextField1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jTextField1.setFont(new java.awt.Font("Tahoma", 0, 14));
         jTextField1.setHorizontalAlignment(javax.swing.JTextField.CENTER);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
@@ -595,10 +566,10 @@ public class TestBuntumi extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jPanel6.setBackground(new java.awt.Color(255, 106, 106));
+        jPanel6.setBackground(new java.awt.Color(255, 255, 102));
         jPanel6.setPreferredSize(new java.awt.Dimension(100, 100));
 
-        jTextField14.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        jTextField14.setFont(new java.awt.Font("Tahoma", 0, 24));
         jTextField14.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         jTextField14.setText("0");
 
@@ -622,7 +593,7 @@ public class TestBuntumi extends javax.swing.JFrame {
         jPanel4.setBackground(new java.awt.Color(106, 106, 255));
         jPanel4.setPreferredSize(new java.awt.Dimension(100, 100));
 
-        jTextField13.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        jTextField13.setFont(new java.awt.Font("Tahoma", 0, 24));
         jTextField13.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         jTextField13.setText("0");
         jTextField13.setPreferredSize(new java.awt.Dimension(20, 20));
@@ -647,10 +618,8 @@ public class TestBuntumi extends javax.swing.JFrame {
         jPanel5.setBackground(new java.awt.Color(255, 255, 102));
         jPanel5.setPreferredSize(new java.awt.Dimension(430, 100));
 
-        jButton12.setBackground(new java.awt.Color(153, 255, 102));
-        jButton12.setFont(new java.awt.Font("Tahoma", 0, 14));
+        jButton12.setFont(new java.awt.Font("Tahoma", 0, 12));
         jButton12.setText("หยิบ");
-        jButton12.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jButton12.setPreferredSize(new java.awt.Dimension(61, 33));
         jButton12.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -658,20 +627,16 @@ public class TestBuntumi extends javax.swing.JFrame {
             }
         });
 
-        jButton10.setBackground(new java.awt.Color(153, 255, 102));
-        jButton10.setFont(new java.awt.Font("Tahoma", 0, 14));
+        jButton10.setFont(new java.awt.Font("Tahoma", 0, 12));
         jButton10.setText("หยิบ");
-        jButton10.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jButton10.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton10ActionPerformed(evt);
             }
         });
 
-        jButton11.setBackground(new java.awt.Color(153, 255, 102));
-        jButton11.setFont(new java.awt.Font("Tahoma", 0, 14));
+        jButton11.setFont(new java.awt.Font("Tahoma", 0, 12));
         jButton11.setText("หยิบ");
-        jButton11.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jButton11.setPreferredSize(new java.awt.Dimension(61, 33));
         jButton11.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -679,52 +644,46 @@ public class TestBuntumi extends javax.swing.JFrame {
             }
         });
 
-        jButton8.setBackground(new java.awt.Color(153, 255, 102));
-        jButton8.setFont(new java.awt.Font("Tahoma", 0, 14));
+        jButton8.setFont(new java.awt.Font("Tahoma", 0, 12));
         jButton8.setText("หยิบ");
-        jButton8.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jButton8.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton8ActionPerformed(evt);
             }
         });
 
-        jButton9.setBackground(new java.awt.Color(153, 255, 102));
-        jButton9.setFont(new java.awt.Font("Tahoma", 0, 14));
+        jButton9.setFont(new java.awt.Font("Tahoma", 0, 12));
         jButton9.setText("หยิบ");
-        jButton9.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jButton9.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton9ActionPerformed(evt);
             }
         });
 
-        jButton7.setBackground(new java.awt.Color(153, 255, 102));
-        jButton7.setFont(new java.awt.Font("Tahoma", 0, 14));
+        jButton7.setFont(new java.awt.Font("Tahoma", 0, 12));
         jButton7.setText("หยิบ");
-        jButton7.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jButton7.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton7ActionPerformed(evt);
             }
         });
 
-        jTextField8.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jTextField8.setFont(new java.awt.Font("Tahoma", 0, 14));
         jTextField8.setHorizontalAlignment(javax.swing.JTextField.CENTER);
 
-        jTextField7.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jTextField7.setFont(new java.awt.Font("Tahoma", 0, 14));
         jTextField7.setHorizontalAlignment(javax.swing.JTextField.CENTER);
 
-        jTextField9.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jTextField9.setFont(new java.awt.Font("Tahoma", 0, 14));
         jTextField9.setHorizontalAlignment(javax.swing.JTextField.CENTER);
 
-        jTextField10.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jTextField10.setFont(new java.awt.Font("Tahoma", 0, 14));
         jTextField10.setHorizontalAlignment(javax.swing.JTextField.CENTER);
 
-        jTextField11.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jTextField11.setFont(new java.awt.Font("Tahoma", 0, 14));
         jTextField11.setHorizontalAlignment(javax.swing.JTextField.CENTER);
 
-        jTextField12.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jTextField12.setFont(new java.awt.Font("Tahoma", 0, 14));
         jTextField12.setHorizontalAlignment(javax.swing.JTextField.CENTER);
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
@@ -845,7 +804,7 @@ public class TestBuntumi extends javax.swing.JFrame {
         jMenu3.setFont(new java.awt.Font("Tahoma", 0, 12));
 
         jMenuItem3.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_1, 0));
-        jMenuItem3.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jMenuItem3.setFont(new java.awt.Font("Tahoma", 0, 12));
         jMenuItem3.setText("ถั่ว 1 เมล็ด");
         jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -918,30 +877,14 @@ public class TestBuntumi extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu2);
 
-        jMenu5.setText("รายละเอียด");
-        jMenu5.setFont(new java.awt.Font("Tahoma", 0, 12));
-
-        jMenuItem10.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F1, 0));
-        jMenuItem10.setFont(new java.awt.Font("Tahoma", 0, 12));
-        jMenuItem10.setText("วิธีเล่น");
-        jMenuItem10.addActionListener(new java.awt.event.ActionListener() {
+        jMenu4.setText("เกี่ยวกับเรา");
+        jMenu4.setFont(new java.awt.Font("Tahoma", 0, 12));
+        jMenu4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem10ActionPerformed(evt);
+                jMenu4ActionPerformed(evt);
             }
         });
-        jMenu5.add(jMenuItem10);
-
-        jMenuItem11.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F2, 0));
-        jMenuItem11.setFont(new java.awt.Font("Tahoma", 0, 12));
-        jMenuItem11.setText("เกี่ยวกับเรา");
-        jMenuItem11.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem11ActionPerformed(evt);
-            }
-        });
-        jMenu5.add(jMenuItem11);
-
-        jMenuBar1.add(jMenu5);
+        jMenuBar1.add(jMenu4);
 
         setJMenuBar(jMenuBar1);
 
@@ -965,12 +908,10 @@ public class TestBuntumi extends javax.swing.JFrame {
      */
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        if(list.getHole(8).getBeans() != 0){
-            defaultBackground();
+        defaultBackground();
         n = check;
-            checkPassHole(list.getHole(8), check);
-            finishGame(checkEnd());
-        }
+        checkPassHole(list.getHole(8), check);
+        finishGame(checkEnd());
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
@@ -979,12 +920,10 @@ public class TestBuntumi extends javax.swing.JFrame {
      */
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
         // TODO add your handling code here:
-        if(list.getHole(1).getBeans() != 0){
-            defaultBackground();
+        defaultBackground();
         n = check;
-            checkPassHole(list.getHole(1), check);
-            finishGame(checkEnd());
-        }
+        checkPassHole(list.getHole(1), check);
+        finishGame(checkEnd());
     }//GEN-LAST:event_jButton7ActionPerformed
 
     /**
@@ -993,12 +932,10 @@ public class TestBuntumi extends javax.swing.JFrame {
      */
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
         // TODO add your handling code here:
-        if(list.getHole(2).getBeans() != 0){
-            defaultBackground();
+        defaultBackground();
         n = check;
-            checkPassHole(list.getHole(2), check);
-            finishGame(checkEnd());
-        }
+        checkPassHole(list.getHole(2), check);
+        finishGame(checkEnd());
     }//GEN-LAST:event_jButton8ActionPerformed
 
     /**
@@ -1007,12 +944,10 @@ public class TestBuntumi extends javax.swing.JFrame {
      */
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
         // TODO add your handling code here:
-        if(list.getHole(3).getBeans() != 0){
-            defaultBackground();
+        defaultBackground();
         n = check;
-            checkPassHole(list.getHole(3), check);
-            finishGame(checkEnd());
-        }
+        checkPassHole(list.getHole(3), check);
+        finishGame(checkEnd());
     }//GEN-LAST:event_jButton9ActionPerformed
 
     /**
@@ -1021,12 +956,10 @@ public class TestBuntumi extends javax.swing.JFrame {
      */
     private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
         // TODO add your handling code here:
-        if(list.getHole(4).getBeans() != 0){
-            defaultBackground();
+        defaultBackground();
         n = check;
-            checkPassHole(list.getHole(4), check);
-            finishGame(checkEnd());
-        }
+        checkPassHole(list.getHole(4), check);
+        finishGame(checkEnd());
     }//GEN-LAST:event_jButton10ActionPerformed
 
     /**
@@ -1035,12 +968,10 @@ public class TestBuntumi extends javax.swing.JFrame {
      */
     private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
         // TODO add your handling code here:
-        if(list.getHole(5).getBeans() != 0){
-            defaultBackground();
+        defaultBackground();
         n = check;
-            checkPassHole(list.getHole(5), check);
-            finishGame(checkEnd());
-        }
+        checkPassHole(list.getHole(5), check);
+        finishGame(checkEnd());
     }//GEN-LAST:event_jButton11ActionPerformed
 
     /**
@@ -1049,12 +980,10 @@ public class TestBuntumi extends javax.swing.JFrame {
      */
     private void jButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton12ActionPerformed
         // TODO add your handling code here:
-        if(list.getHole(6).getBeans() != 0){
-            defaultBackground();
+        defaultBackground();
         n = check;
-            checkPassHole(list.getHole(6), check);
-            finishGame(checkEnd());
-        }
+        checkPassHole(list.getHole(6), check);
+        finishGame(checkEnd());
     }//GEN-LAST:event_jButton12ActionPerformed
 
     /**
@@ -1063,12 +992,10 @@ public class TestBuntumi extends javax.swing.JFrame {
      */
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
-        if(list.getHole(9).getBeans() != 0){
-            defaultBackground();
+        defaultBackground();
         n = check;
-            checkPassHole(list.getHole(9), check);
-            finishGame(checkEnd());
-        }
+        checkPassHole(list.getHole(9), check);
+        finishGame(checkEnd());
     }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
@@ -1085,12 +1012,10 @@ public class TestBuntumi extends javax.swing.JFrame {
      */
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
-        if(list.getHole(10).getBeans() != 0){
-            defaultBackground();
+        defaultBackground();
         n = check;
-            checkPassHole(list.getHole(10), check);
-            finishGame(checkEnd());
-        }
+        checkPassHole(list.getHole(10), check);
+        finishGame(checkEnd());
     }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
@@ -1099,12 +1024,10 @@ public class TestBuntumi extends javax.swing.JFrame {
      */
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
-        if(list.getHole(11).getBeans() != 0){
-            defaultBackground();
+        defaultBackground();
         n = check;
-            checkPassHole(list.getHole(11), check);
-            finishGame(checkEnd());
-        }
+        checkPassHole(list.getHole(11), check);
+        finishGame(checkEnd());
     }//GEN-LAST:event_jButton4ActionPerformed
 
     /**
@@ -1113,12 +1036,10 @@ public class TestBuntumi extends javax.swing.JFrame {
      */
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         // TODO add your handling code here:
-        if(list.getHole(12).getBeans() != 0){
-            defaultBackground();
+        defaultBackground();
         n = check;
-            checkPassHole(list.getHole(12), check);
-            finishGame(checkEnd());
-        }
+        checkPassHole(list.getHole(12), check);
+        finishGame(checkEnd());
     }//GEN-LAST:event_jButton5ActionPerformed
 
     /**
@@ -1127,17 +1048,14 @@ public class TestBuntumi extends javax.swing.JFrame {
      */
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         // TODO add your handling code here:
-        if(list.getHole(13).getBeans() != 0){
-            defaultBackground();
+        defaultBackground();
         n = check;
-            checkPassHole(list.getHole(13), check);
-            finishGame(checkEnd());
-        }
+        checkPassHole(list.getHole(13), check);  
+        finishGame(checkEnd());
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
         // TODO add your handling code here:
-        defaultBackground();
         CreateList(numBean);
         setText();
     }//GEN-LAST:event_jMenuItem2ActionPerformed
@@ -1191,26 +1109,15 @@ public class TestBuntumi extends javax.swing.JFrame {
         setText();
     }//GEN-LAST:event_jMenuItem9ActionPerformed
 
-    private void jMenuItem10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem10ActionPerformed
+    private void jMenu4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu4ActionPerformed
         // TODO add your handling code here:
-        JOptionPane.showMessageDialog(null, 
-                "เกม Bantsumi เป็นเกมเล่น 2 คน\nโดยผู้เล่นแต่ละคนจะต้องเลือกหยิบถั่วในหลุมของตน\nเพื่อนำถั่วที่หยิบขึ้นมาไปใส่ในตะกร้าของตน\n"
-                + "ซึ่งถ้าหยิบใส่ลงตะกร้าตนเงพอดีจะได้เล่นต่อ\nแต่ถ้าไม่พอดีเลยไปที่หลุมฝ่ายตรงข้าม\nหรือตกที่หลุมตนเองแต่ไม่ถึงตะกร้าจะเปลี่ยนตาเล่น\n"
-                + "แล้วถ้าฝ่ายไหนถั่วหมดหลุมก่อนและถั่วในตะกร้า\nมีจำนวนมากกว่าจะเป็นผู้ชนะ",
-                "วิธีเล่น", JOptionPane.INFORMATION_MESSAGE);
-    }//GEN-LAST:event_jMenuItem10ActionPerformed
+        //jTextField15.setText("Create by Forestia Group");
+    }//GEN-LAST:event_jMenu4ActionPerformed
 
-    private void jMenuItem11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem11ActionPerformed
+    private void jPanel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MouseClicked
         // TODO add your handling code here:
-        JOptionPane.showMessageDialog(null, 
-                "Create By Forestia Group\n"
-                + "                 @Gorn\n"
-                + "                 @Kik\n"
-                + "                 @Champ\n"
-                + "                 @Best\n"
-                + "                 @Auy",
-                "เกี่ยวกับเรา", JOptionPane.INFORMATION_MESSAGE);
-    }//GEN-LAST:event_jMenuItem11ActionPerformed
+        JOptionPane.showMessageDialog(null, "แน่ะๆ!! รู้นะว่าคิดอะไร อิอิ^^", "Not Button", JOptionPane.ERROR_MESSAGE);
+    }//GEN-LAST:event_jPanel1MouseClicked
 
     /**
      * @param args the command line arguments
@@ -1241,11 +1148,9 @@ public class TestBuntumi extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
-    private javax.swing.JMenu jMenu5;
+    private javax.swing.JMenu jMenu4;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem10;
-    private javax.swing.JMenuItem jMenuItem11;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;

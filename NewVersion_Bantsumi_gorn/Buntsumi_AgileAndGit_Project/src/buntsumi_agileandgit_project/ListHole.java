@@ -113,6 +113,11 @@ public class ListHole {
         return pointer;
     }
     
+    /**
+     * method ขโมยถั่ว
+     * @param pointer หลุมที่จะขโมย
+     * @return จำนวนของถั่วที่ขโมย
+     */
     public int stealBeans(Hole pointer){
         int amount = pointer.getBeans();
         pointer.setBeans(0);
@@ -122,6 +127,12 @@ public class ListHole {
         return amount+steal;
     }
     
+    /**
+     * method ใช้ check หลุมตรงข้าม
+     * @param pointer หลุมที่ต้องการ
+     * @param last ลำดับของหลุมตรงข้าม
+     * @return true เมื่อหลุมทั้งสองตรงข้ามกัน
+     */
     public boolean CheckOpposite(Hole pointer,int last){
         if(pointer.getNumHole() < 8 && last > 7){
             return false;

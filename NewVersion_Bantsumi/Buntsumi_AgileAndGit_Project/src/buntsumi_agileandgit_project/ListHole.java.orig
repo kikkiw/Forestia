@@ -95,6 +95,7 @@ public class ListHole {
                     && CheckOpposite(this.getHole(first),
                     (amount+this.getHole(first).getNumHole())%14)
                     && pointer.getNumHole()!= 7 && pointer.getNumHole() != 14 ){
+                checkSteal(pointer);
                 int point;
                 int stealPoint = this.stealBeans(pointer);
                 if(check == false){
@@ -110,7 +111,18 @@ public class ListHole {
         }
     }
     
-
+    public boolean checkSteal(Hole pointer){
+        int first = pointer.getNumHole();
+        int amount = pointer.getBeans();         // เปรียบเสมือนการหยิบถั่วออกมาจากหลุม
+        if(CheckOpposite(this.getHole(first),
+                    (amount+this.getHole(first).getNumHole())%14)){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+    
     /**
      * method ขโมยถั่ว
      * @param pointer หลุมที่จะขโมย
