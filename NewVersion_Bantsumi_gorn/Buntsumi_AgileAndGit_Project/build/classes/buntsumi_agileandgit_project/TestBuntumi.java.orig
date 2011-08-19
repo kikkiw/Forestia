@@ -13,6 +13,7 @@ package buntsumi_agileandgit_project;
 import java.awt.Color;
 import java.awt.Image;
 import java.awt.Toolkit;
+import javax.management.timer.Timer;
 import javax.swing.JOptionPane;
 
 /**
@@ -23,13 +24,12 @@ public class TestBuntumi extends javax.swing.JFrame {
     ListHole list;                      
     boolean check = true;               // ไว้ใช้ check ว่าเป็นตาเล่นของฝ่ายไหน
     int i = 0;                          // ไว้ใช้ check ในการเปิด-ปิดปุ่ม
-    int numBean = 4;                    // ค่าตั้งตนของถั่ว
-    int countP1 = 0,countP2 = 0;        // ไว้ใช้ให้ check ว่าถ้าฝ่ายไหนชนะให้นับเพิ่มไป 1
-    boolean n;                          // ไว้ใช้ check message dialog
-    boolean vt = true;                  
+    int numBean = 4;    //ค่าตั้งตนของถั่ว
+    int countP1 = 0,countP2 = 0;
+    boolean vt = true;
     
     //Ctreate List
-    public final void CreateList(int numBean){
+    public void CreateList(int numBean){
         list = new ListHole();      
         
         // ทำการเชื่อมหลุมทุกหลุมไว้ด้วยกัน
@@ -77,21 +77,6 @@ public class TestBuntumi extends javax.swing.JFrame {
         jButton10.setEnabled(true);
         jButton11.setEnabled(true);
         jButton12.setEnabled(true);
-        
-        jTextField1.setEnabled(false);
-        jTextField2.setEnabled(false);
-        jTextField3.setEnabled(false);
-        jTextField4.setEnabled(false);
-        jTextField5.setEnabled(false);
-        jTextField6.setEnabled(false);
-        jTextField7.setEnabled(false);
-        jTextField8.setEnabled(false);
-        jTextField9.setEnabled(false);
-        jTextField10.setEnabled(false);
-        jTextField11.setEnabled(false);
-        jTextField12.setEnabled(false);
-        jTextField13.setEnabled(false);
-        jTextField14.setEnabled(false);
     }
     
     /**
@@ -107,8 +92,8 @@ public class TestBuntumi extends javax.swing.JFrame {
         for(int j = 8;j<14;j++){
             sum2 = list.getHole(j).getBeans()+sum2;
         }
-//        System.out.println("sum1: "+sum1);
-//        System.out.println("sum2: "+sum2);
+        //System.out.println("sum1: "+sum1);
+        //System.out.println("sum2: "+sum2);
         if(sum1 == 0 || sum2 == 0){
             return true;
         }
@@ -120,11 +105,11 @@ public class TestBuntumi extends javax.swing.JFrame {
      * @param end คือที่ check ว่าหลุมทุกหลุมของฝ่ายใดฝ่ายหนึ่งว่างเปล่า
      */
     public void finishGame(boolean end){
-        if(end == true){        // ถ้ามีหลุมฝ่ายใดฝ่ายหนึ่งว่างเปล่า
-            int valP1 = list.getHole(7).getBeans();     // จำนวนถั่วในตะกร้าของ player 1
-            int valP2 = list.getHole(14).getBeans();    // จำนวนถั่วในตะกร้าของ player 2
+        if(end == true){
+            int valP1 = list.getHole(7).getBeans();
+            int valP2 = list.getHole(14).getBeans();
             
-            if(valP1 > valP2){              // จำนวนถั่วของ player 1 มากกว่า       
+            if(valP1 > valP2){
                 countP1++;
                 JOptionPane.showMessageDialog(null
                         , "            Player 1 win!!\nPlayer 1 win: " + countP1 + "    Player 2 win: " + countP2
@@ -133,7 +118,7 @@ public class TestBuntumi extends javax.swing.JFrame {
                 CreateList(numBean);
                 setText();
             }
-            else if(valP1 < valP2){         // จำนวนถั่วของ player 2 มากกว่า
+            else if(valP1 < valP2){
                 countP2++;
                 JOptionPane.showMessageDialog(null
                         , "            Player 2 win!!\nPlayer 1 win: " + countP1 + "    Player 2 win: " + countP2
@@ -144,15 +129,10 @@ public class TestBuntumi extends javax.swing.JFrame {
             }    
         }
         else{
-            if(n != check){
-                showDialogChangePlayer(check);
-            }
+            showDialogChangePlayer(check);
         }
     }
     
-    /**
-     * method ใช้ set ค่าสีเริ่มต้น
-     */
     private void defaultBackground(){
             jTextField7.setBackground(Color.white);
             jTextField8.setBackground(Color.white);
@@ -161,7 +141,6 @@ public class TestBuntumi extends javax.swing.JFrame {
             jTextField11.setBackground(Color.white);
             jTextField12.setBackground(Color.white);
             jTextField14.setBackground(Color.white);
-            
             jTextField1.setBackground(Color.white);
             jTextField2.setBackground(Color.white);
             jTextField3.setBackground(Color.white);
@@ -171,45 +150,37 @@ public class TestBuntumi extends javax.swing.JFrame {
             jTextField13.setBackground(Color.white);
     }
     
-    /**
-     * method ใช้ทำการ set สีเส้นทางที่เดิน
-     * @param i 
-     */
     private void paintBackground(int i){
-        Color c = Color.black;
         if(i == 0)
-            jTextField7.setBackground(c);
+            jTextField7.setBackground(Color.getHSBColor(120, 40, 100));
         else if(i == 1)
-            jTextField8.setBackground(c);
+            jTextField8.setBackground(Color.getHSBColor(120, 40, 100));
         else if(i == 2)
-            jTextField9.setBackground(c);
+            jTextField9.setBackground(Color.getHSBColor(120, 40, 100));
         else if(i == 3)
-            jTextField10.setBackground(c);
+            jTextField10.setBackground(Color.getHSBColor(120, 40, 100));
         else if(i == 4)
-            jTextField11.setBackground(c);
+            jTextField11.setBackground(Color.getHSBColor(120, 40, 100));
         else if(i == 5)
-            jTextField12.setBackground(c);
+            jTextField12.setBackground(Color.getHSBColor(120, 40, 100));
         else if(i == 6)
-            jTextField14.setBackground(c);
+            jTextField14.setBackground(Color.getHSBColor(120, 40, 100));
         else if(i == 7)
-            jTextField1.setBackground(c);
+            jTextField1.setBackground(Color.getHSBColor(120, 40, 100));
         else if(i == 8)
-            jTextField2.setBackground(c);
+            jTextField2.setBackground(Color.getHSBColor(120, 40, 100));
         else if(i == 9)
-            jTextField3.setBackground(c);
+            jTextField3.setBackground(Color.getHSBColor(120, 40, 100));
         else if(i == 10)
-            jTextField4.setBackground(c);
+            jTextField4.setBackground(Color.getHSBColor(120, 40, 100));
         else if(i == 11)
-            jTextField5.setBackground(c);
+            jTextField5.setBackground(Color.getHSBColor(120, 40, 100));
         else if(i == 12)
-            jTextField6.setBackground(c);
+            jTextField6.setBackground(Color.getHSBColor(120, 40, 100));
         else if(i == 13)
-            jTextField13.setBackground(c);
+            jTextField13.setBackground(Color.getHSBColor(120, 40, 100));
     }
     
-    /**
-     * method ใช้มาร์กสีเส้นทางที่เดิน ของ turn นั้นๆ
-     */
     private void paintText(){
         String buf[] = new String[14]; 
         
@@ -249,9 +220,9 @@ public class TestBuntumi extends javax.swing.JFrame {
         buf2[12] = jTextField6.getText();
         buf2[13] = jTextField13.getText();
         
-        for(int j =0;j<14;j++){
-            if(buf[j].equals(buf2[j]) != true){
-                paintBackground(j);
+        for(int i =0;i<14;i++){
+            if(buf[i].equals(buf2[i]) != true){
+                paintBackground(i);
             }
         }
     }
@@ -327,18 +298,11 @@ public class TestBuntumi extends javax.swing.JFrame {
         }        
     }
     
-    /**
-     * method ใช้ show message dialog check turn ของผู้เล่น
-     * @param player ใช้ check turn ของผู้เล่น
-     */
     public void showDialogChangePlayer(boolean player){
-        if(player == true){
-            JOptionPane.showMessageDialog(null, "Player 1", 
+        if(player != vt){
+            JOptionPane.showMessageDialog(null, "Change Turn", 
                     "Change Turn", JOptionPane.WARNING_MESSAGE);
-        }
-        else{
-            JOptionPane.showMessageDialog(null, "Player 2", 
-                    "Change Turn", JOptionPane.WARNING_MESSAGE);
+            vt = player;
         }
     }
     
@@ -440,14 +404,17 @@ public class TestBuntumi extends javax.swing.JFrame {
         jPanel3.setBackground(new java.awt.Color(106, 106, 255));
         jPanel3.setPreferredSize(new java.awt.Dimension(430, 100));
 
-        jTextField6.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jTextField6.setFont(new java.awt.Font("Tahoma", 0, 14));
         jTextField6.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        jTextField6.setText("6");
 
-        jTextField4.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jTextField4.setFont(new java.awt.Font("Tahoma", 0, 14));
         jTextField4.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        jTextField4.setText("6");
 
-        jTextField5.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jTextField5.setFont(new java.awt.Font("Tahoma", 0, 14));
         jTextField5.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        jTextField5.setText("6");
 
         jButton2.setBackground(new java.awt.Color(153, 255, 102));
         jButton2.setFont(new java.awt.Font("Tahoma", 0, 14));
@@ -469,8 +436,9 @@ public class TestBuntumi extends javax.swing.JFrame {
             }
         });
 
-        jTextField3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jTextField3.setFont(new java.awt.Font("Tahoma", 0, 14));
         jTextField3.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        jTextField3.setText("6");
 
         jButton6.setBackground(new java.awt.Color(153, 255, 102));
         jButton6.setFont(new java.awt.Font("Tahoma", 0, 14));
@@ -512,11 +480,13 @@ public class TestBuntumi extends javax.swing.JFrame {
             }
         });
 
-        jTextField2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jTextField2.setFont(new java.awt.Font("Tahoma", 0, 14));
         jTextField2.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        jTextField2.setText("6");
 
-        jTextField1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jTextField1.setFont(new java.awt.Font("Tahoma", 0, 14));
         jTextField1.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        jTextField1.setText("6");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -577,7 +547,7 @@ public class TestBuntumi extends javax.swing.JFrame {
         jPanel6.setBackground(new java.awt.Color(255, 106, 106));
         jPanel6.setPreferredSize(new java.awt.Dimension(100, 100));
 
-        jTextField14.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        jTextField14.setFont(new java.awt.Font("Tahoma", 0, 24));
         jTextField14.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         jTextField14.setText("0");
 
@@ -601,7 +571,7 @@ public class TestBuntumi extends javax.swing.JFrame {
         jPanel4.setBackground(new java.awt.Color(106, 106, 255));
         jPanel4.setPreferredSize(new java.awt.Dimension(100, 100));
 
-        jTextField13.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        jTextField13.setFont(new java.awt.Font("Tahoma", 0, 24));
         jTextField13.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         jTextField13.setText("0");
         jTextField13.setPreferredSize(new java.awt.Dimension(20, 20));
@@ -688,23 +658,29 @@ public class TestBuntumi extends javax.swing.JFrame {
             }
         });
 
-        jTextField8.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jTextField8.setFont(new java.awt.Font("Tahoma", 0, 14));
         jTextField8.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        jTextField8.setText("6");
 
-        jTextField7.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jTextField7.setFont(new java.awt.Font("Tahoma", 0, 14));
         jTextField7.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        jTextField7.setText("6");
 
-        jTextField9.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jTextField9.setFont(new java.awt.Font("Tahoma", 0, 14));
         jTextField9.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        jTextField9.setText("6");
 
-        jTextField10.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jTextField10.setFont(new java.awt.Font("Tahoma", 0, 14));
         jTextField10.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        jTextField10.setText("6");
 
-        jTextField11.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jTextField11.setFont(new java.awt.Font("Tahoma", 0, 14));
         jTextField11.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        jTextField11.setText("6");
 
-        jTextField12.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jTextField12.setFont(new java.awt.Font("Tahoma", 0, 14));
         jTextField12.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        jTextField12.setText("6");
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -946,7 +922,6 @@ public class TestBuntumi extends javax.swing.JFrame {
         // TODO add your handling code here:
         if(list.getHole(8).getBeans() != 0){
             defaultBackground();
-        n = check;
             checkPassHole(list.getHole(8), check);
             finishGame(checkEnd());
         }
@@ -960,7 +935,6 @@ public class TestBuntumi extends javax.swing.JFrame {
         // TODO add your handling code here:
         if(list.getHole(1).getBeans() != 0){
             defaultBackground();
-        n = check;
             checkPassHole(list.getHole(1), check);
             finishGame(checkEnd());
         }
@@ -974,7 +948,6 @@ public class TestBuntumi extends javax.swing.JFrame {
         // TODO add your handling code here:
         if(list.getHole(2).getBeans() != 0){
             defaultBackground();
-        n = check;
             checkPassHole(list.getHole(2), check);
             finishGame(checkEnd());
         }
@@ -988,7 +961,6 @@ public class TestBuntumi extends javax.swing.JFrame {
         // TODO add your handling code here:
         if(list.getHole(3).getBeans() != 0){
             defaultBackground();
-        n = check;
             checkPassHole(list.getHole(3), check);
             finishGame(checkEnd());
         }
@@ -1002,7 +974,6 @@ public class TestBuntumi extends javax.swing.JFrame {
         // TODO add your handling code here:
         if(list.getHole(4).getBeans() != 0){
             defaultBackground();
-        n = check;
             checkPassHole(list.getHole(4), check);
             finishGame(checkEnd());
         }
@@ -1016,7 +987,6 @@ public class TestBuntumi extends javax.swing.JFrame {
         // TODO add your handling code here:
         if(list.getHole(5).getBeans() != 0){
             defaultBackground();
-        n = check;
             checkPassHole(list.getHole(5), check);
             finishGame(checkEnd());
         }
@@ -1030,7 +1000,6 @@ public class TestBuntumi extends javax.swing.JFrame {
         // TODO add your handling code here:
         if(list.getHole(6).getBeans() != 0){
             defaultBackground();
-        n = check;
             checkPassHole(list.getHole(6), check);
             finishGame(checkEnd());
         }
@@ -1044,7 +1013,6 @@ public class TestBuntumi extends javax.swing.JFrame {
         // TODO add your handling code here:
         if(list.getHole(9).getBeans() != 0){
             defaultBackground();
-        n = check;
             checkPassHole(list.getHole(9), check);
             finishGame(checkEnd());
         }
@@ -1066,7 +1034,6 @@ public class TestBuntumi extends javax.swing.JFrame {
         // TODO add your handling code here:
         if(list.getHole(10).getBeans() != 0){
             defaultBackground();
-        n = check;
             checkPassHole(list.getHole(10), check);
             finishGame(checkEnd());
         }
@@ -1080,7 +1047,6 @@ public class TestBuntumi extends javax.swing.JFrame {
         // TODO add your handling code here:
         if(list.getHole(11).getBeans() != 0){
             defaultBackground();
-        n = check;
             checkPassHole(list.getHole(11), check);
             finishGame(checkEnd());
         }
@@ -1094,7 +1060,6 @@ public class TestBuntumi extends javax.swing.JFrame {
         // TODO add your handling code here:
         if(list.getHole(12).getBeans() != 0){
             defaultBackground();
-        n = check;
             checkPassHole(list.getHole(12), check);
             finishGame(checkEnd());
         }
@@ -1108,7 +1073,6 @@ public class TestBuntumi extends javax.swing.JFrame {
         // TODO add your handling code here:
         if(list.getHole(13).getBeans() != 0){
             defaultBackground();
-        n = check;
             checkPassHole(list.getHole(13), check);
             finishGame(checkEnd());
         }

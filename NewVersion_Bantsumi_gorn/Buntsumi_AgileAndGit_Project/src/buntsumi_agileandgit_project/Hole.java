@@ -28,15 +28,12 @@ public class Hole {
         this.next = next;
     }
 
-    /**
-     * @return the opposite hole
-     */
     public int getOppositeHole() {
         return oppositeHole;
     }
 
     /**
-     * @return the hole
+     * @return the beans
      */
     public int getNumHole() {
         return numHole;
