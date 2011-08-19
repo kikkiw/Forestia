@@ -25,8 +25,7 @@ public class TestBuntumi extends javax.swing.JFrame {
     int i = 0;                          // ไว้ใช้ check ในการเปิด-ปิดปุ่ม
     int numBean = 4;                    // ค่าตั้งตนของถั่ว
     int countP1 = 0,countP2 = 0;        // ไว้ใช้ให้ check ว่าถ้าฝ่ายไหนชนะให้นับเพิ่มไป 1
-    boolean n;                          // ไว้ใช้ check message dialog
-    boolean vt = true;                  
+    boolean n;                          // ไว้ใช้ check message dialog                 
     
     //Ctreate List
     public final void CreateList(int numBean){
@@ -98,7 +97,7 @@ public class TestBuntumi extends javax.swing.JFrame {
      * method check ว่าในหลุมทุกหลุุมของฝ่ายใดฝ่ายหนึ่งว่างเปล่าหรือไม่
      * @return true เมื่อหลุมทุกหลุมของฝ่ายใดฝ่ายหนึ่งว่างเปล่า
      */
-    private boolean checkEnd(){
+    public boolean checkEnd(){
         int sum1=0;
         int sum2=0;
         for(int j = 1;j<7;j++){

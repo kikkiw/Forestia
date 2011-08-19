@@ -64,7 +64,7 @@ public class ListHole {
      * @param pointer คือ หลุมที่ต้องการ
      * @param check ไว้ใช้ check ตาของผู้เล่น
      */
-    public void ShiftBean(Hole pointer, boolean check){
+    public Hole ShiftBean(Hole pointer, boolean check){
         int first = pointer.getNumHole();
         int amount = pointer.getBeans();         // เปรียบเสมือนการหยิบถั่วออกมาจากหลุม
         pointer.setBeans(0);                     // set ค่าให้หลุมนั้นว่างเปล่า
@@ -101,13 +101,16 @@ public class ListHole {
                     point = this.getHole(14).getBeans();
                     point = point+stealPoint;
                     this.getHole(14).setBeans(point);
+                    return this.getHole(pointer.getOppositeHole());
                 }else{
                     point = this.getHole(7).getBeans();
                     point = point+stealPoint;
                     this.getHole(7).setBeans(point);
+                    return this.getHole(pointer.getOppositeHole());
                 }
             }
         }
+        return pointer;
     }
     
     public int stealBeans(Hole pointer){
